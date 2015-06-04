@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>DFA Simulator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Shumail Mohy-ud-Din">
+    <!-- Le styles -->
+    <link href="css/metro-bootstrap.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>  
+  <body data-spy="scroll" data-target=".subnav" data-offset="50" screen_capture_injected="true">
+   
+
+    <!-- Static navbar -->
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#"><h1>DFA Simulator v 1.2 </h1></a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+          <div style="height:100px;" class="navbar-right">
+          
+		  </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="container">
+		<div class="row">
+			<div class="col-sm-12"> 
+				<p>Enter the parameters below and generate DFA!!	</p>
+			</div>
+		</div>
+		
+		<div class="row">
+			
+			<div class="col-sm-6">
+				<!-- Form for DFA parameters -->
+				<div id="DFAInteractiveForm" >
+					<!--<ul class="nav nav-pills">
+					  <li class="active"><a href="#">Interactive</a></li>
+					  <li><a href="#">Batch Entry</a></li>
+					</ul> -->
+					
+					<form id = "formDFADetail" action="">
+						
+					  
+					  </br>
+					<div class="form-group">
+						
+						<div class="row">
+							<div class="col-sm-6">
+									<div class="input-group">
+									  <span class="input-group-addon">State</span>
+									  <input type="text" class="form-control" id="stateName" name="stateName" placeholder="State Name" required>
+									</div>
+							</div>
+							
+							<div class="col-sm-3">
+								<label class="control checkbox" id="startingStateLabel">
+								   <input type="checkbox" id="DFAStartStateCheckBox" name="DFAStartStateCheckBox" value="1" >
+								   <span class="checkbox-label"> Starting State</span>
+								</label>
+							</div>
+							
+							<div class="col-sm-3">
+								<label class="control checkbox" id="startingStateLabel">
+								   <input type="checkbox" id="DFAFinalStateCheckBox" name="DFAFinalStateCheckBox" value="1" >
+								   <span class="checkbox-label"> Final State</span>
+								</label>
+							</div>
+						</div>
+						
+						<br>
+						<div class="input-group">
+						  <span class="input-group-addon">Transitions</span>
+						  <input type="text" class="form-control" id="transitions" name="transitions" placeholder="(Symbol, Next-State),(Symbol, Next-State) "required>
+						</div>
+						
+					</div>
+					  </br>
+					  <!-- !-->
+					 <button type="button" id="AddStateBtn" class="btn btn-lg btn-block btn-primary" onclick="addStateFromFormToDFAStatesList(this.form)">Add State</button>
+					</form>
+					<br>
+					<button type="button" id="GenDFABtn" class="btn btn-lg btn-block btn-success" onclick="generateDFAGraph()">Generate DFA</button>
+					<hr>
+					<div><p id="dfaTransitions" ></p></div>
+					<br>
+					<div id="isLanguageContainE"  class="alert alert-warning" id="" role="alert"></div>
+					<hr>
+					<div id="isLanguageEmptyAlert"  class="alert alert-warning" id="" role="alert"></div>
+					<hr>
+				
+				</div>
+			</div>
+			
+			<div class="col-sm-6">
+				<div id="DFADrawing" class="text-center" style="border:1px solid black;" >
+					
+				</div>
+				<hr>
+				<div>
+					<h2>Check String: </h2>
+					<form id = "stringForm" action="">
+					<div class="row">
+						<div class="col-sm-9">
+							<div class="input-group">
+								<span class="input-group-addon">Input String</span>
+								<input type="text" class="form-control" id="inputTestString" name="inputTestString" placeholder="Enter String to Test" required>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<button type="button" class="btn btn-primary btn-block " onclick="testUserString(this.form)">Check</button>
+						</div>
+					</div><br>
+					<div id="StringValidationAlert" class="alert"><p id = "stringValidationText"></p></div>
+					   
+					</form>
+				</div>
+				<hr>
+				<div>
+				<h2>Generate Words File: </h2>
+					<a download="words.txt" id="fileDownloadLink" style="display: none"><h3>Click here to Download file of words</h3></a>
+				</div>
+			</div>
+		</div>
+		
+    <hr>
+
+      <!-- Site footer -->
+      <div class="footer">    
+        <p>DFA Simulator by <a href="http://twitter.com/shumail365" target="_blank">Shumail Mohy-ud-Din, Aunn Raza, Hunain Arif</a></p>
+      </div>
+
+    </div> <!-- /container -->
+    <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/viz.js"></script>
+	<script type="text/javascript" src="js/header.js"></script>
+	<script type="text/javascript" src="js/dfa.js"></script>
+	<script type="text/javascript" src="js/stringValidator.js"></script>
+	<script type="text/javascript" src="js/drawDFA.js"></script>
+	<script type="text/javascript" src="js/dfaLanguageWords.js"></script>
+	
+	<script>
+		$("#isLanguageContainE").hide();
+		$("#isLanguageEmptyAlert").hide();
+		$("#DFADrawing").hide();
+	</script>
+  
+
+  </body>
+</html>
